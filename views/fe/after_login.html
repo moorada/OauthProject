@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="shortcut icon" href="#" />
+    <meta charset="UTF-8">
+    <title>After Login</title>
+</head>
+<style>
+    pre {
+        /*outline: 1px solid #ccc;*/
+        padding: 5px;
+        margin: 5px;
+    }
+
+    .string {
+        color: green;
+    }
+
+    .number {
+        color: darkorange;
+    }
+
+    .boolean {
+        color: blue;
+    }
+
+    .null {
+        color: magenta;
+    }
+
+    .key {
+        color: red;
+    }
+
+</style>
+<body>
+<h2>Dettagli del token ottenuto:</h2>
+<ul>
+    <li>Access Token:
+        <pre><code>{{.AccessToken.AccessToken}}</code> </pre>
+    </li>
+    <li>Token Type:
+        <pre><code>{{.AccessToken.TokenType}}</code></pre>
+    </li>
+    <li>Refresh Token:
+        <pre><code>{{.AccessToken.RefreshToken}}</code></pre>
+    </li>
+    <li>Expired:
+        <pre><code>{{.AccessToken.Expiry}}</code></pre>
+    </li>
+</ul>
+
+<a href="http://oaclient.test/cosavedo" target=”_blank”>Interfaccia con il server che possiede il tuo AccessToken</a><br>
+
+</body>
+
+</html>

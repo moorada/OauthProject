@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="shortcut icon" href="#" />
+    <meta charset="UTF-8">
+    <title>Homepage</title>
+</head>
+<body>
+    <a href="{{.LoginURL}}">Accedi!</a>
+    <ul>
+        <li>Access Token: {{.AccessToken.AccessToken}}</li>
+        <li>Token Type: {{.AccessToken.TokenType}}</li>
+        <li>Refresh Token: {{.AccessToken.RefreshToken}}</li>
+        <li>Expired: {{.AccessToken.Expiry}}</li>
+    </ul>
+</body>
+</html>

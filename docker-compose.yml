@@ -1,0 +1,72 @@
+version: '3.7'
+
+services:
+  hydra-migrate:
+    image: oryd/hydra:v1.10
+    restart: on-failure
+    networks:
+      - ory-hydra-network
+    command:
+      migrate sql -e --yes
+    environment:
+      - DSN=postgres://hydra:secret@postgresd:5432/hydra?sslmode=disable&max_conns=20&max_idle_conns=4
+    depends_on:
+      - postgresd
+
+  hydra:
+    image: oryd/hydra:v1.10
+    restart: on-failure
+    networks:
+      - ory-hydra-network
+    ports:
+      - "4444:4444" # Public port
+      - "4445:4445" # Admin port
+      - "5555:5555" # Port for hydra token user, testing purpose only
+    command:
+      serve all --dangerous-force-http --dangerous-allow-insecure-redirect-urls http://oaclient.test/callbacksOauth,http://oidcclient.test/callbacksopenid
+    environment:
+      # https://www.ory.sh/hydra/docs/reference/configuration
+      # https://github.com/ory/hydra/blob/aeecfe1c8f/test/e2e/docker-compose.yml
+      - SECRETS_SYSTEM=this-is-the-primary-secret
+      - URLS_LOGIN=http://identityprovider.test/authentication/login # Sets the login endpoint of the User Login & Consent flow.
+      - URLS_CONSENT=http://identityprovider.test/authentication/consent # Sets the consent endpoint of the User Login & Consent flow.
+      - URLS_LOGOUT=http://identityprovider.test/authentication/logout #Sets the logout endopoint
+      #- URLS_POST_LOGOUT_REDIRECT=http://localhost:2222,http://localhost:1111
+      # set to Hydra public domain
+      - URLS_SELF_PUBLIC=http://hydra.test # to public endpoint
+      - URLS_SELF_ISSUER=http://hydra.test # to public endpoint
+      - DSN=postgres://hydra:secret@postgresd:5432/hydra?sslmode=disable&max_conns=20&max_idle_conns=4
+      - SERVE_PUBLIC_PORT=4444
+      - SERVE_PUBLIC_HOST=0.0.0.0
+      - SERVE_PUBLIC_CORS_ENABLED=true
+      - SERVE_ADMIN_PORT=4445
+      - LOG_LEVEL=trace
+      - LOG_LEAK_SENSITIVE_VALUES=true
+    depends_on:
+      - postgresd
+
+  postgresd:
+    image: postgres:13
+    restart: on-failure
+    networks:
+      - ory-hydra-network
+    ports:
+      - "5433:5432"
+    environment:
+      - POSTGRES_USER=hydra
+      - POSTGRES_PASSWORD=secret
+      - POSTGRES_DB=hydra
+    volumes:
+      - ./_logs:/var/lib/postgresql/data
+
+  adminer:
+    image: adminer
+    restart: always
+    networks:
+      - ory-hydra-network
+    ports:
+      - 9000:8080
+
+networks:
+  ory-hydra-network:
+    name: ory-hydra-net

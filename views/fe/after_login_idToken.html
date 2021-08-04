@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="shortcut icon" href="#" />
+    <meta charset="UTF-8">
+    <title>After Login</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+</head>
+<body>
+<h1>Ciao utente con matricola: {{.user_id}}</h1>
+<p>Il tuo nome è {{.nome_utente}} e la tua email è {{.email}}</p>
+
+<h2>Prova richieste informazioni</h2>
+<form class="p-5">
+    <div class="form-group">
+        <label for="tipo">Figura</label>
+        <select class="form-control" id="tipo">
+            <option value="docente">Docente</option>
+            <option value="studente">Studente</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="nominativo">Nominativo</label>
+        <select class="form-control" id="nominativo">
+            <option value="S960483">Saverio Bergamaschi</option>
+            <option value="S960228">Boris Moretti</option>
+            <option value="D6002">Olindo Pirozzi</option>
+            <option value="D6003">Valente Pinto</option>
+        </select></div>
+    <div class="form-group">
+        <label for="oggetto">Oggetto</label>
+        <select class="form-control" id="oggetto">
+            <option value="info">Informazioni</option>
+            <option value="voti">Voti</option>
+        </select></div>
+    </div>
+    <input id="submit_form_info" type="button" class="btn btn-primary" value="Invia">
+</form>
+
+<h2>Prova richieste per i voti da parte del docente</h2>
+<form class="p-5">
+    <div class="form-group">
+        <label for="azione">Azione</label>
+        <select class="form-control" id="azione">
+            <option value="GET">Recupera</option>
+            <option value="POST">Aggiungi</option>
+            <option value="PUT">Modifica</option>
+            <option value="DELETE">Rimuovi</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="studente">Studente</label>
+        <select class="form-control" id="studente">
+            <option value="S960483">Saverio Bergamashi</option>
+            <option value="S960228">Boris Moretti</option>
+            <option value="S960312">Francesco Rossi</option>
+            <option value="S942222">Antonio Verdi</option>
+            <option value="S911111">Maria Bianchi</option>
+        </select></div>
+    <div class="form-group">
+        <label for="studente">Corso</label>
+        <select class="form-control" id="corso">
+            <option value="1">Crittografia</option>
+            <option value="2">Architetture orientate ai servizi</option>
+            <option value="3">Sistemi biometrici</option>
+            <option value="4">Intelligenza Artificiale</option>
+            <option value="5">Privatezza e protezione dei dati</option>
+        </select></div>
+
+    <div class="form-group" id="votoField">
+        <label for="voto">Voto</label>
+        <select class="form-control" id="voto">
+            <option value="18">18</option>
+            <option value="19">19</option>
+            <option value="20">20</option>
+            <option value="21">21</option>
+            <option value="22">22</option>
+            <option value="23">23</option>
+            <option value="24">24</option>
+            <option value="25">25</option>
+            <option value="26">26</option>
+            <option value="27">27</option>
+            <option value="28">28</option>
+            <option value="29">29</option>
+            <option value="30">30</option>
+            <option value="31">30L</option>
+        </select>
+
+    </div>
+    <input id="submit_form" type="button" class="btn btn-primary" value="Invia">
+</form>
+
+
+<h2>Prova dispense per docenti</h2>
+<form class="p-5">
+    <div class="form-group">
+        <label for="azione_dispensa">Azione</label>
+        <select class="form-control" id="azione_dispensa">
+            <option value="GET">Recupera</option>
+            <option value="POST">Aggiungi</option>
+            <option value="PUT">Modifica</option>
+            <option value="DELETE">Rimuovi</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="corso_dispensa">Corso</label>
+        <select class="form-control" id="corso_dispensa">
+            <option value="1">Crittografia</option>
+            <option value="2">Architetture orientate ai servizi</option>
+            <option value="3">Sistemi biometrici</option>
+            <option value="4">Intelligenza Artificiale</option>
+            <option value="5">Privatezza e protezione dei dati</option>
+        </select></div>
+    <div class="form-group" id="dispensa_field">
+        <label for="dispensa">n Dispensa</label>
+        <input class="form-control" type="number" id="dispensa" min="1" max="10">
+    </div>
+    <div class="form-group" id="titolo_field">
+        <label for="titolo">Titolo</label><br>
+        <input class="form-control" type="text" id="titolo" value="John"><br>
+    </div>
+
+    <div class="form-group" id="testo_dispensa_field">
+        <label for="testo_dispensa">Testo della dispensa</label><br>
+        <textarea id="testo_dispensa" class="form-control" type="text" value="Testo della dispensa" rows="4" cols="50">
+Testo della dispensa
+</textarea>
+    </div>
+    </div>
+    <input id="submit_form_dispense" type="button" class="btn btn-primary" value="Invia">
+</form>
+
+<h2>
+    <a href="http://oidcclient.test/logout" id="logout_link">Logout!</a>
+</h2>
+
+<a href="http://oidcclient.test/resetscopes" target=”_blank”>Reset scopes!</a>
+
+
+<script type="text/javascript">
+
+    $("#azione").change(function () {
+        if ($(this).val() != "GET" && $(this).val()!= "DELETE") {
+            $('#votoField').show();
+        } else {
+            $('#votoField').hide();
+        }
+    });
+    $("#azione").trigger("change");
+    $(document).ready(function () {
+        $('#submit_form').click(function () {
+            var voto = $('#voto').val();
+            var metodo = $('#azione').val();
+            var studente = $('#studente').val();
+            var corso = $('#corso').val();
+
+            var url = "http://oidcclient.test/corso/" + corso + "/voto/" + studente
+            if (metodo == "GET") {
+                $.ajax({
+                    url: url,    //Your api url
+                    type: metodo,   //type is any HTTP method
+                    success: function (ajax_response) {
+                        console.log(ajax_response)
+                        alert(JSON.stringify(ajax_response));
+                    },
+                    error: function (ajax_response) {
+                        console.log("Errore "+ ajax_response)
+                        alert(JSON.stringify(ajax_response));
+                    }
+                })
+                ;
+            } else {
+                $.ajax({
+                    url: url,    //Your api url
+                    type: metodo,   //type is any HTTP method
+                    data: {
+                        voto: voto
+                    },      //Data as js object
+                    success: function (ajax_response) {
+                        console.log(ajax_response)
+                        alert(JSON.stringify(ajax_response));
+                    },
+                    error: function (ajax_response) {
+                        console.log("Errore "+ ajax_response)
+                        alert(JSON.stringify(ajax_response));
+                    }
+                })
+                ;
+            }
+        });
+    });
+
+    $("#azione_dispensa").change(function () {
+            if ($(this).val() == "GET") {
+                $('#testo_dispensa_field').hide();
+                $('#titolo_field').hide();
+                $('#dispensa_field').show();
+            } else if ($(this).val() == "POST") {
+                $('#testo_dispensa_field').show();
+                $('#titolo_field').show();
+                $('#dispensa_field').hide();
+            } else if ($(this).val() == "PUT") {
+                $('#testo_dispensa_field').show();
+                $('#titolo_field').show();
+                $('#dispensa_field').show();
+            } else {
+                $('#testo_dispensa_field').hide();
+                $('#titolo_field').hide();
+                $('#dispensa_field').show();
+            }
+        }
+    );
+    $("#azione_dispensa").trigger("change");
+    $(document).ready(function () {
+        $('#submit_form_dispense').click(function () {
+            var metodo = $('#azione_dispensa').val();
+            var nDispensa = $('#dispensa').val();
+            var corso = $('#corso_dispensa').val();
+            var titolo = $('#titolo').val();
+            var testoDispensa = $('#testo_dispensa').val();
+
+            var url = "http://oidcclient.test/corso/" + corso + "/dispensa/" + nDispensa
+            if (metodo == "POST") {
+                url = "http://oidcclient.test/corso/" + corso + "/dispensa/add"
+            }
+            if (metodo == "GET") {
+                $.ajax({
+                    url: url,    //Your api url
+                    type: metodo,   //type is any HTTP method
+                    success: function (ajax_response) {
+                        console.log(ajax_response)
+                        alert(JSON.stringify(ajax_response));
+                    },
+                    error: function (ajax_response) {
+                        console.log("errore "+ ajax_response)
+                        alert(JSON.stringify(ajax_response));
+                    }
+                })
+                ;
+            } else {
+                $.ajax({
+                    url: url,    //Your api url
+                    type: metodo,   //type is any HTTP method
+                    data: {
+                        testoDispensa: testoDispensa,
+                        titolo: titolo
+                    },      //Data as js object
+                    success: function (ajax_response) {
+                        console.log(ajax_response)
+                        alert(JSON.stringify(ajax_response));
+                    },
+                    error: function (ajax_response) {
+                        console.log("errore "+ ajax_response)
+                        alert(JSON.stringify(ajax_response));
+                    }
+                })
+                ;
+            }
+
+
+        });
+    });
+
+    $(document).ready(function () {
+        $('#submit_form_info').click(function () {
+            var tipo = $('#tipo').val();
+            var nominativo = $('#nominativo').val();
+            var oggetto = $('#oggetto').val();
+
+            var url = "http://oidcclient.test/" + tipo + "/" + nominativo +"/"+oggetto
+            $.ajax({
+                url: url,    //Your api url
+                type: "GET",   //type is any HTTP method
+                data: {
+                },      //Data as js object
+                success: function (ajax_response) {
+                    console.log(ajax_response)
+                    alert(JSON.stringify(ajax_response));
+                },
+                error: function (ajax_response) {
+                    console.log("errore "+ ajax_response)
+                    alert(JSON.stringify(ajax_response));
+                }
+            })
+            ;
+
+        });
+    });
+
+</script>
+
+</body>
+</html>

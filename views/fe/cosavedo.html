@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="shortcut icon" href="#" />
+    <meta charset="UTF-8">
+    <title>After Login</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <style>
+        pre {
+            /*outline: 1px solid #ccc;*/
+            padding: 5px;
+            margin: 5px;
+        }
+
+        .string {
+            color: green;
+        }
+
+        .number {
+            color: darkorange;
+        }
+
+        .boolean {
+            color: blue;
+        }
+
+        .null {
+            color: magenta;
+        }
+
+        .key {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+<h1>Da questa interafaccia è possibile vedere cosa può fare il client OAuth 2.0 con il tuo access token </h1>
+
+<h2>Articoli Boris:</h2>
+Ottenuti tramite la richiesta GET <a href="{{.LinkBoris}}">{{.LinkBoris}}</a>
+<p>{{.HeaderBoris}}</p>
+<pre><code><p id="Boris">{{.ArticlesBoris}}</p></code></pre>
+<h2>Articoli Saverio:</h2>
+Ottenuti tramite la richiesta GET <a href="{{.LinkSaverio}}">{{.LinkSaverio}}</a>
+<p>{{.HeaderSaverio}}</p>
+<pre><code><p id="Saverio">{{.ArticlesSaverio}}</p></code></pre>
+
+<h2>Fai scrivere al server un articolo tramite il tuo access token:</h2>
+<form class="p-5">
+    <div class="form-group">
+        <label for="titolo">Titolo</label>
+        <input class="form-control" type="text" id="titolo">
+    </div>
+    <div class="form-group">
+        <label for="autore">Autore</label>
+        <select class="form-control" id="autore">
+            <option value="S960228">Boris</option>
+            <option value="S960483">Saverio</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="descrizione">Descrizione</label>
+        <textarea id="descrizione" class="form-control" type="text" value="Descrizione dell'articolo" rows="2"
+                  cols="50"></textarea>
+    </div>
+    <div class="form-group">
+        <label for="contenuto">Contenuto</label>
+        <textarea id="contenuto" class="form-control" type="text" value="Contenuto dell'articolo" rows="5" cols="50"></textarea>
+    </div>
+    </div>
+    <input id="submit_form" type="button" class="btn btn-primary" value="Invia">
+</form>
+
+<a href="{{.ResetScopes}}" target=”_blank”>Reset scopes</a>
+
+
+<script>
+    // var obj = document.getElementById("demo").innerHTML;
+    // var myJSON = JSON.stringify(obj, null, 4);
+
+    var obj = JSON.parse('{{.ArticlesBoris}}');
+    var str = JSON.stringify(obj, undefined, 4);
+    document.getElementById("Boris").innerHTML = syntaxHighlight(str);
+
+    var obj2 = JSON.parse('{{.ArticlesSaverio}}');
+    var str2 = JSON.stringify(obj2, undefined, 4);
+    document.getElementById("Saverio").innerHTML = syntaxHighlight(str2);
+
+
+    function syntaxHighlight(json) {
+        json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+            var cls = 'number';
+            if (/^"/.test(match)) {
+                if (/:$/.test(match)) {
+                    cls = 'key';
+                } else {
+                    cls = 'string';
+                }
+            } else if (/true|false/.test(match)) {
+                cls = 'boolean';
+            } else if (/null/.test(match)) {
+                cls = 'null';
+            }
+            return '<span class="' + cls + '">' + match + '</span>';
+        });
+    }
+
+    $(document).ready(function () {
+        $('#submit_form').click(function () {
+            var titolo = $('#titolo').val();
+            var autore = $('#autore').val();
+            var descrizione = $('#descrizione').val();
+            var contenuto = $('#contenuto').val();
+
+            var autorenome;
+            if (autore === "S960228"){
+                autorenome = "Boris";
+            } else {
+                autorenome = "Saverio";
+            }
+            const obj = {Id: "", Title: titolo, Author: autorenome, Subject: autore, Desc: descrizione, Content: contenuto};
+            var url = "http://oaclient.test/cosavedo"
+
+            $.ajax({
+                url: url,    //Your api url
+                type: "POST",   //type is any HTTP method
+                // dataType: 'json',
+                // contentType: 'application/json',
+                data: {
+                    obj: JSON.stringify(obj),
+                },      //Data as js object
+                success: function (ajax_response) {
+                    console.log(ajax_response)
+                    alert(ajax_response.toString());
+                },
+                error: function (ajax_response) {
+                    console.log("errore "+ ajax_response)
+                    alert(JSON.stringify(ajax_response));
+                }
+            })
+            ;
+
+        });
+    });
+
+</script>
+
+</body>
+
+</html>

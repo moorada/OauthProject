@@ -1,0 +1,31 @@
+#uno studente può vedere tutto su se stesso
+p, S960483, /studente/S960483/*, GET, allow
+p, S960228, /studente/S960228/*, GET, allow
+
+#Boris segue crittografia, quindi può vedere il materiale
+p, S960228, /corso/1/dispensa, GET, allow
+
+#Saverio segue SOA Sec, quindi può vedere il materiale
+p, S960483, /corso/2/dispensa, GET, allow
+
+#Pinto è il prof. di Crittografia quindi può vedere tutto
+p, D6002, /corso/1/*, (GET|PUT|POST|DELETE), allow
+
+#Pinto è il prof. di SOA Sec quindi può vedere tutto
+p, D6003, /corso/2/*, (GET|PUT|POST|DELETE), allow
+
+#Il prof può vedere le info di tutti gli studenti
+p, professore, /studente/[^\/]+/info, GET, allow
+#Lo studente e i docenti possono vedere le info di tutti i docenti
+p, studente, /docente/[^\/]+/info, GET, allow
+p, professore, /docente/[^\/]+/info, GET, allow
+# ogni studente/docente può vedere le informazioni di tutti i corsi
+p, studente, /corso/[^\/]+/info, GET, allow
+p, professore, /corso/[^\/]+/info, GET, allow
+
+
+g,S960228,studente
+g,S960483,studente
+
+g,D6002,professore
+g,D6003,professore

@@ -1,0 +1,5 @@
+oaclient http://127.0.0.1:1111
+oidcclient http://127.0.0.1:2222
+resourceserver http://127.0.0.1:10000
+identityprovider http://127.0.0.1:8000
+hydra http://127.0.0.1:4444
